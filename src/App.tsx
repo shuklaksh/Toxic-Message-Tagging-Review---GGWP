@@ -4,6 +4,7 @@ import { Tabs } from "./components/Tabs";
 import { QueueView } from "./components/QueueView";
 import { ProcessedView } from "./components/ProcessedView";
 import { TaggingModal } from "./components/TaggingModal";
+import { Toast } from "./components/Toast";
 import { useMessages } from "./context/MessageContext";
 
 function AppShell() {
@@ -16,6 +17,7 @@ function AppShell() {
         {state.activeTab === "queue" ? <QueueView /> : <ProcessedView />}
       </main>
       <TaggingModal />
+      <Toast />
     </div>
   );
 }

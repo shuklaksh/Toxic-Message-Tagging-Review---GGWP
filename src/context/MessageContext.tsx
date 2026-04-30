@@ -14,7 +14,8 @@ interface MessageState {
   messages: Message[];
   activeTab: TabKey;
   filters: Filters;
-  selectedMessageId: number | null; // which message has the modal open
+  selectedMessageId: number | null;
+  toast: { text: string; id: number } | null; // auto-dismiss toast
 }
 
 const initialFilters: Filters = {
@@ -28,6 +29,7 @@ const initialState: MessageState = {
   activeTab: "queue",
   filters: initialFilters,
   selectedMessageId: null,
+  toast: null,
 };
 
 // ─── Actions ─────────────────────────────────────────────────────────────────
@@ -39,7 +41,8 @@ type MessageAction =
   | { type: "SET_FILTER"; payload: Partial<Filters> }
   | { type: "CLEAR_FILTERS" }
   | { type: "OPEN_MODAL"; payload: number }
-  | { type: "CLOSE_MODAL" };
+  | { type: "CLOSE_MODAL" }
+  | { type: "CLEAR_TOAST" };
 
 // ─── Reducer ─────────────────────────────────────────────────────────────────
 
@@ -54,6 +57,7 @@ function messageReducer(
     case "TAG_MESSAGE": {
       const { id, toxicityType, impact, comment } = action.payload;
       const now = new Date().toISOString();
+      const wasUntagged = state.messages.find((m) => m.id === id)?.status === "Untagged";
       return {
         ...state,
         messages: state.messages.map((msg) =>
@@ -69,7 +73,11 @@ function messageReducer(
               }
             : msg
         ),
-        selectedMessageId: null, // auto-close modal after tag
+        selectedMessageId: null,
+        toast: {
+          text: wasUntagged ? "Message tagged successfully!" : "Tag updated successfully!",
+          id: Date.now(),
+        },
       };
     }
 
@@ -94,6 +102,9 @@ function messageReducer(
 
     case "CLOSE_MODAL":
       return { ...state, selectedMessageId: null };
+
+    case "CLEAR_TOAST":
+      return { ...state, toast: null };
 
     default:
       return state;
