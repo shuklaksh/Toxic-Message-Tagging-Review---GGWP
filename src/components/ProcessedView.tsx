@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useMessages } from "../context/MessageContext";
 import { IMPACT_BG, IMPACT_DOT, formatTimestamp } from "../utils/helpers";
 import type { Message } from "../types";
+import { Filters } from "./Filters";
 
 const PAGE_SIZE = 10;
 
@@ -139,6 +140,7 @@ export function ProcessedView() {
             Processed Reports
           </h2>
         </div>
+        <Filters mode="processed" />
         <div className="flex flex-col items-center justify-center py-24 gap-4 text-center">
           <div className="w-16 h-16 rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center">
             <svg
@@ -179,6 +181,7 @@ export function ProcessedView() {
           {processedMessages.length} message{processedMessages.length !== 1 ? "s" : ""} reviewed
         </span>
       </div>
+      <Filters mode="processed" />
 
       <div className="flex flex-col gap-4">
         {/* Table */}
