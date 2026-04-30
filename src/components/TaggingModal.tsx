@@ -124,8 +124,8 @@ export function TaggingModal() {
       aria-labelledby="modal-title"
       onClick={(e) => { if (e.target === e.currentTarget) handleCancel(); }}
     >
-      {/* Card */}
-      <div className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl bg-slate-900 border border-slate-700 shadow-2xl flex flex-col">
+      {/* Card — flex column, never taller than 90vh */}
+      <div className="relative w-full max-w-2xl max-h-[90vh] rounded-2xl bg-slate-900 border border-slate-700 shadow-2xl flex flex-col overflow-hidden">
 
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800 shrink-0">
@@ -148,15 +148,16 @@ export function TaggingModal() {
           </button>
         </div>
 
-        {/* Body */}
-        <form onSubmit={handleSubmit} className="flex flex-col gap-5 px-6 py-5">
+        {/* Body — scrollable */}
+        <form onSubmit={handleSubmit} className="flex flex-col flex-1 overflow-hidden">
+          <div className="flex flex-col gap-4 px-6 py-4 overflow-y-auto flex-1">
 
           {/* ── Read-only: Message ── */}
           <div>
             <label className="block text-xs font-medium text-slate-400 mb-1.5 uppercase tracking-wide">
               Message
             </label>
-            <div className="rounded-lg bg-slate-800/60 border border-slate-700 px-4 py-3 text-sm text-slate-200 leading-relaxed max-h-32 overflow-y-auto">
+            <div className="rounded-lg bg-slate-800/60 border border-slate-700 px-4 py-2 text-sm text-slate-200 leading-relaxed max-h-20 overflow-y-auto">
               {message.message}
             </div>
           </div>
@@ -166,7 +167,7 @@ export function TaggingModal() {
             <label className="block text-xs font-medium text-slate-400 mb-1.5 uppercase tracking-wide">
               Logged By
             </label>
-            <div className="rounded-lg bg-slate-800/60 border border-slate-700 px-4 py-2.5 text-sm text-slate-300 font-mono">
+            <div className="rounded-lg bg-slate-800/60 border border-slate-700 px-4 py-2 text-sm text-slate-300 font-mono">
               {message.loggedBy}
             </div>
           </div>
@@ -309,16 +310,18 @@ export function TaggingModal() {
             </label>
             <textarea
               id="modal-comment"
-              rows={3}
+              rows={2}
               placeholder="Add internal notes for the moderation team…"
               value={comment}
               onChange={(e) => setComment(e.target.value)}
-              className="w-full rounded-lg bg-slate-800 border border-slate-700 focus:border-rose-500 focus:ring-1 focus:ring-rose-500 px-3 py-2.5 text-sm text-slate-200 placeholder-slate-500 outline-none transition-colors resize-none"
+              className="w-full rounded-lg bg-slate-800 border border-slate-700 focus:border-rose-500 focus:ring-1 focus:ring-rose-500 px-3 py-2 text-sm text-slate-200 placeholder-slate-500 outline-none transition-colors resize-none"
             />
           </div>
 
-          {/* ── Footer actions ── */}
-          <div className="flex justify-end gap-3 pt-1 border-t border-slate-800">
+          </div>{/* end scrollable body */}
+
+          {/* Footer — sticky, always visible */}
+          <div className="flex justify-end gap-3 px-6 py-4 border-t border-slate-800 shrink-0 bg-slate-900">
             <button
               type="button"
               id="modal-cancel"
