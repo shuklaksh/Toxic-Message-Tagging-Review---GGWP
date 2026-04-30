@@ -59,6 +59,7 @@ export function Select({
   const triggerRef = useRef<HTMLButtonElement>(null);
   const listboxRef = useRef<HTMLUListElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const isKeyboardNav = useRef(false);
 
   const normalised = options.map(normalise);
   const selected = normalised.find((o) => o.value === value) ?? null;
@@ -112,7 +113,7 @@ export function Select({
   // ── Scroll active option into view ────────────────────────────────────────
 
   useEffect(() => {
-    if (!open || activeIndex < 0) return;
+    if (!open || activeIndex < 0 || !isKeyboardNav.current) return;
     const li = listboxRef.current?.children[activeIndex] as HTMLElement | undefined;
     li?.scrollIntoView({ block: "nearest" });
   }, [open, activeIndex]);
@@ -145,10 +146,12 @@ export function Select({
     switch (e.key) {
       case "ArrowDown":
         e.preventDefault();
+        isKeyboardNav.current = true;
         setActiveIndex((i) => Math.min(i + 1, normalised.length - 1));
         break;
       case "ArrowUp":
         e.preventDefault();
+        isKeyboardNav.current = true;
         setActiveIndex((i) => Math.max(i - 1, 0));
         break;
       case "Enter":
@@ -165,17 +168,22 @@ export function Select({
         break;
       case "Home":
         e.preventDefault();
+        isKeyboardNav.current = true;
         setActiveIndex(0);
         break;
       case "End":
         e.preventDefault();
+        isKeyboardNav.current = true;
         setActiveIndex(normalised.length - 1);
         break;
       default: {
         // Type-ahead: jump to first option starting with the pressed letter
         const ch = e.key.toLowerCase();
         const idx = normalised.findIndex((o) => o.label.toLowerCase().startsWith(ch));
-        if (idx >= 0) setActiveIndex(idx);
+        if (idx >= 0) {
+          isKeyboardNav.current = true;
+          setActiveIndex(idx);
+        }
       }
     }
   }
@@ -263,7 +271,10 @@ export function Select({
                 role="option"
                 aria-selected={isSelected}
                 onClick={() => pick(opt)}
-                onMouseEnter={() => setActiveIndex(idx)}
+                onMouseEnter={() => {
+                  isKeyboardNav.current = false;
+                  setActiveIndex(idx);
+                }}
                 className={[
                   "flex items-center justify-between gap-3 px-3 py-2 text-xs cursor-pointer transition-colors duration-75",
                   isActive
@@ -296,3 +307,278 @@ export function Select({
     </div>
   );
 }
+
+// ─── MultiSelect Component ───────────────────────────────────────────────────
+
+export interface MultiSelectProps {
+  id?: string;
+  value: string[];
+  onChange: (value: string[]) => void;
+  options: (SelectOption | string)[];
+  placeholder?: string;
+  className?: string;
+  disabled?: boolean;
+}
+
+export function MultiSelect({
+  id: idProp,
+  value,
+  onChange,
+  options,
+  placeholder = "Select…",
+  className = "",
+  disabled = false,
+}: MultiSelectProps) {
+  const autoId = useId();
+  const triggerId = idProp ?? autoId;
+  const listboxId = `${triggerId}-listbox`;
+
+  const [open, setOpen] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(-1);
+  const [dropUp, setDropUp] = useState(false);
+
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const listboxRef = useRef<HTMLUListElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isKeyboardNav = useRef(false);
+
+  const normalised = options.map(normalise);
+
+  function recalcPosition() {
+    if (!triggerRef.current) return;
+    const rect = triggerRef.current.getBoundingClientRect();
+    const spaceBelow = window.innerHeight - rect.bottom;
+    setDropUp(spaceBelow < 220);
+  }
+
+  function openMenu() {
+    recalcPosition();
+    setOpen(true);
+    setActiveIndex(0);
+  }
+
+  function closeMenu(returnFocus = true) {
+    setOpen(false);
+    setActiveIndex(-1);
+    if (returnFocus) triggerRef.current?.focus();
+  }
+
+  function toggleMenu() {
+    if (disabled) return;
+    open ? closeMenu() : openMenu();
+  }
+
+  const handleOutside = useCallback(
+    (e: MouseEvent) => {
+      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+        closeMenu(false);
+      }
+    },
+    [open]
+  );
+
+  useEffect(() => {
+    if (open) document.addEventListener("mousedown", handleOutside);
+    return () => document.removeEventListener("mousedown", handleOutside);
+  }, [open, handleOutside]);
+
+  useEffect(() => {
+    if (!open || activeIndex < 0 || !isKeyboardNav.current) return;
+    const li = listboxRef.current?.children[activeIndex] as HTMLElement | undefined;
+    li?.scrollIntoView({ block: "nearest" });
+  }, [open, activeIndex]);
+
+  function handleTriggerKey(e: KeyboardEvent<HTMLButtonElement>) {
+    switch (e.key) {
+      case "Enter":
+      case " ":
+      case "ArrowDown":
+        e.preventDefault();
+        isKeyboardNav.current = true;
+        openMenu();
+        break;
+      case "ArrowUp":
+        e.preventDefault();
+        isKeyboardNav.current = true;
+        recalcPosition();
+        setOpen(true);
+        setActiveIndex(normalised.length - 1);
+        break;
+      case "Escape":
+        closeMenu();
+        break;
+    }
+  }
+
+  function toggleOption(optValue: string) {
+    if (value.includes(optValue)) {
+      onChange(value.filter((v) => v !== optValue));
+    } else {
+      onChange([...value, optValue]);
+    }
+  }
+
+  function handleListKey(e: KeyboardEvent<HTMLUListElement>) {
+    switch (e.key) {
+      case "ArrowDown":
+        e.preventDefault();
+        isKeyboardNav.current = true;
+        setActiveIndex((i) => Math.min(i + 1, normalised.length - 1));
+        break;
+      case "ArrowUp":
+        e.preventDefault();
+        isKeyboardNav.current = true;
+        setActiveIndex((i) => Math.max(i - 1, 0));
+        break;
+      case "Enter":
+      case " ":
+        e.preventDefault();
+        if (activeIndex >= 0) {
+          toggleOption(normalised[activeIndex].value);
+        }
+        break;
+      case "Escape":
+      case "Tab":
+        closeMenu();
+        break;
+      case "Home":
+        e.preventDefault();
+        isKeyboardNav.current = true;
+        setActiveIndex(0);
+        break;
+      case "End":
+        e.preventDefault();
+        isKeyboardNav.current = true;
+        setActiveIndex(normalised.length - 1);
+        break;
+      default: {
+        const ch = e.key.toLowerCase();
+        const idx = normalised.findIndex((o) => o.label.toLowerCase().startsWith(ch));
+        if (idx >= 0) {
+          isKeyboardNav.current = true;
+          setActiveIndex(idx);
+        }
+      }
+    }
+  }
+
+  const selectedLabels = value
+    .map((v) => normalised.find((o) => o.value === v)?.label)
+    .filter(Boolean);
+
+  let displayLabel = placeholder;
+  if (selectedLabels.length === 1) {
+    displayLabel = selectedLabels[0]!;
+  } else if (selectedLabels.length > 1) {
+    displayLabel = `${selectedLabels.length} selected`;
+  }
+
+  return (
+    <div ref={containerRef} className={`relative block ${className}`}>
+      <button
+        ref={triggerRef}
+        id={triggerId}
+        type="button"
+        role="combobox"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-controls={listboxId}
+        aria-disabled={disabled}
+        disabled={disabled}
+        onClick={toggleMenu}
+        onKeyDown={handleTriggerKey}
+        className={[
+          "flex w-full items-center justify-between gap-2 px-3 py-2 rounded-lg border text-sm",
+          "bg-slate-800 border-slate-700 text-slate-200",
+          "hover:bg-slate-700 hover:border-slate-600",
+          "focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500 focus-visible:border-rose-500",
+          "transition-colors duration-150 select-none",
+          "disabled:opacity-40 disabled:cursor-not-allowed",
+          open ? "border-rose-500 ring-1 ring-rose-500" : "",
+        ].join(" ")}
+      >
+        <span className={value.length > 0 ? "text-slate-100" : "text-slate-500"}>
+          {displayLabel}
+        </span>
+
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 16 16"
+          fill="currentColor"
+          className={[
+            "w-4 h-4 text-slate-400 transition-transform duration-200 shrink-0",
+            open ? "rotate-180" : "",
+          ].join(" ")}
+          aria-hidden="true"
+        >
+          <path
+            fillRule="evenodd"
+            d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z"
+            clipRule="evenodd"
+          />
+        </svg>
+      </button>
+
+      {open && (
+        <ul
+          ref={listboxRef}
+          id={listboxId}
+          role="listbox"
+          aria-multiselectable="true"
+          aria-label="Options"
+          tabIndex={-1}
+          onKeyDown={handleListKey}
+          className={[
+            "absolute z-50 min-w-full w-max max-w-[300px] max-h-60 overflow-y-auto",
+            "bg-slate-900 border border-slate-700 rounded-xl shadow-2xl shadow-black/60",
+            "py-1 focus:outline-none",
+            "animate-dropdown-in",
+            dropUp ? "bottom-full mb-1" : "top-full mt-1",
+          ].join(" ")}
+        >
+          {normalised.map((opt, idx) => {
+            const isSelected = value.includes(opt.value);
+            const isActive = idx === activeIndex;
+            return (
+              <li
+                key={opt.value}
+                role="option"
+                aria-selected={isSelected}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleOption(opt.value);
+                  triggerRef.current?.focus();
+                }}
+                onMouseEnter={() => {
+                  isKeyboardNav.current = false;
+                  setActiveIndex(idx);
+                }}
+                className={[
+                  "flex items-center gap-3 px-3 py-2 text-sm cursor-pointer transition-colors duration-75",
+                  isActive
+                    ? "bg-slate-800 text-white"
+                    : "text-slate-300 hover:bg-slate-800/60",
+                ].join(" ")}
+              >
+                <div
+                  className={[
+                    "w-4 h-4 rounded border-2 flex items-center justify-center shrink-0 transition-colors",
+                    isSelected ? "bg-rose-500 border-rose-500" : "border-slate-600 bg-slate-800/50",
+                  ].join(" ")}
+                >
+                  {isSelected && (
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" fill="none" stroke="white" strokeWidth={2} className="w-2.5 h-2.5">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M2 6l3 3 5-5" />
+                    </svg>
+                  )}
+                </div>
+                <span className={isSelected ? "font-semibold" : ""}>{opt.label}</span>
+              </li>
+            );
+          })}
+        </ul>
+      )}
+    </div>
+  );
+}
+

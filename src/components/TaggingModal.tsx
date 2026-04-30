@@ -3,6 +3,7 @@ import { useMessages } from "../context/MessageContext";
 import { useSuggestedImpact } from "../hooks/useSuggestedImpact";
 import { TOXICITY_OPTIONS, type Impact } from "../types";
 import { IMPACT_BG, IMPACT_DOT } from "../utils/helpers";
+import { MultiSelect } from "./ui/Select";
 
 const IMPACTS: Impact[] = ["Low", "Medium", "High", "Critical"];
 
@@ -64,13 +65,6 @@ export function TaggingModal() {
   const isEditMode = message.status === "Tagged";
   const hasCustom = selectedTypes.includes("Custom");
 
-  // ── Toxicity toggle ─────────────────────────────────────────────────────────
-  function toggleType(type: string) {
-    setSelectedTypes((prev) =>
-      prev.includes(type) ? prev.filter((t) => t !== type) : [...prev, type]
-    );
-    setErrors((e) => ({ ...e, types: undefined }));
-  }
 
   // ── Final toxicity list (swap "Custom" for the typed value) ─────────────────
   function resolvedTypes(): string[] {
@@ -185,43 +179,16 @@ export function TaggingModal() {
               )}
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-              {TOXICITY_OPTIONS.map((opt) => {
-                const checked = selectedTypes.includes(opt);
-                return (
-                  <label
-                    key={opt}
-                    className={[
-                      "flex items-center gap-2 px-3 py-2 rounded-lg border cursor-pointer transition-all text-sm select-none",
-                      checked
-                        ? "bg-rose-900/40 border-rose-600 text-rose-200"
-                        : "bg-slate-800/50 border-slate-700 text-slate-300 hover:border-slate-500 hover:bg-slate-800",
-                    ].join(" ")}
-                  >
-                    <input
-                      type="checkbox"
-                      className="sr-only"
-                      checked={checked}
-                      onChange={() => toggleType(opt)}
-                      id={`toxicity-${opt}`}
-                    />
-                    <span
-                      className={[
-                        "w-4 h-4 rounded border-2 flex items-center justify-center shrink-0 transition-colors",
-                        checked ? "bg-rose-500 border-rose-500" : "border-slate-600",
-                      ].join(" ")}
-                    >
-                      {checked && (
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 12" fill="none" stroke="white" strokeWidth={2} className="w-2.5 h-2.5">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M2 6l3 3 5-5" />
-                        </svg>
-                      )}
-                    </span>
-                    {opt}
-                  </label>
-                );
-              })}
-            </div>
+            <MultiSelect
+              id="toxicity-select"
+              value={selectedTypes}
+              onChange={(v) => {
+                setSelectedTypes(v);
+                setErrors((e) => ({ ...e, types: undefined }));
+              }}
+              options={[...TOXICITY_OPTIONS]}
+              placeholder="Select toxicity types…"
+            />
 
             {/* Custom input */}
             {hasCustom && (
