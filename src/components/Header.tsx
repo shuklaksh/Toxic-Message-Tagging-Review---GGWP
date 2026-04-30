@@ -1,7 +1,7 @@
 import { useMessages } from "../context/MessageContext";
 
 export function Header() {
-  const { untaggedCount, taggedCount, state } = useMessages();
+  const { untaggedCount, taggedCount, cancelledCount, state } = useMessages();
   const total = state.messages.length;
 
   return (
@@ -47,6 +47,12 @@ export function Header() {
               Tagged&nbsp;
               <span className="font-semibold">{taggedCount}</span>
             </span>
+            {cancelledCount > 0 && (
+              <span className="px-2.5 py-1 rounded-full bg-orange-950 text-orange-300 border border-orange-800">
+                Cancelled&nbsp;
+                <span className="font-semibold">{cancelledCount}</span>
+              </span>
+            )}
           </div>
         )}
       </div>

@@ -9,7 +9,7 @@ interface Tab {
 }
 
 export function Tabs() {
-  const { state, dispatch, untaggedCount, taggedCount } = useMessages();
+  const { state, dispatch, untaggedCount, taggedCount, cancelledCount } = useMessages();
 
   const tabs: Tab[] = [
     {
@@ -27,6 +27,16 @@ export function Tabs() {
       count: taggedCount,
       countColor: "bg-emerald-600 text-white",
     },
+    ...(cancelledCount > 0
+      ? [
+          {
+            key: "cancelled" as TabKey,
+            label: "Cancelled",
+            count: cancelledCount,
+            countColor: "bg-orange-600 text-white",
+          },
+        ]
+      : []),
   ];
 
   return (

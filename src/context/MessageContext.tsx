@@ -15,7 +15,8 @@ interface MessageState {
   activeTab: TabKey;
   filters: Filters;
   selectedMessageId: number | null;
-  toast: { text: string; id: number } | null; // auto-dismiss toast
+  cancelMessageId: number | null; // which message has the cancel confirm open
+  toast: { text: string; id: number } | null;
 }
 
 const initialFilters: Filters = {
@@ -29,6 +30,7 @@ const initialState: MessageState = {
   activeTab: "queue",
   filters: initialFilters,
   selectedMessageId: null,
+  cancelMessageId: null,
   toast: null,
 };
 
@@ -37,11 +39,14 @@ const initialState: MessageState = {
 type MessageAction =
   | { type: "INIT_MESSAGES"; payload: Message[] }
   | { type: "TAG_MESSAGE"; payload: { id: number } & TagPayload }
+  | { type: "CANCEL_MESSAGE"; payload: { id: number; reason?: string } }
   | { type: "SET_TAB"; payload: TabKey }
   | { type: "SET_FILTER"; payload: Partial<Filters> }
   | { type: "CLEAR_FILTERS" }
   | { type: "OPEN_MODAL"; payload: number }
   | { type: "CLOSE_MODAL" }
+  | { type: "OPEN_CANCEL_MODAL"; payload: number }
+  | { type: "CLOSE_CANCEL_MODAL" }
   | { type: "CLEAR_TOAST" };
 
 // ─── Reducer ─────────────────────────────────────────────────────────────────
@@ -81,6 +86,33 @@ function messageReducer(
       };
     }
 
+    case "CANCEL_MESSAGE": {
+      const { id, reason } = action.payload;
+      const now = new Date().toISOString();
+      return {
+        ...state,
+        messages: state.messages.map((msg) =>
+          msg.id === id
+            ? {
+                ...msg,
+                status: "Cancelled" as const,
+                cancellationReason: reason,   // undefined if blank → view shows "Invalid report"
+                updatedBy: "Moderator",
+                updatedAt: now,
+                toxicityType: undefined,
+                impact: undefined,
+                comment: undefined,
+              }
+            : msg
+        ),
+        cancelMessageId: null,
+        toast: {
+          text: "Report marked as invalid.",
+          id: Date.now(),
+        },
+      };
+    }
+
     case "SET_TAB":
       return {
         ...state,
@@ -103,6 +135,12 @@ function messageReducer(
     case "CLOSE_MODAL":
       return { ...state, selectedMessageId: null };
 
+    case "OPEN_CANCEL_MODAL":
+      return { ...state, cancelMessageId: action.payload };
+
+    case "CLOSE_CANCEL_MODAL":
+      return { ...state, cancelMessageId: null };
+
     case "CLEAR_TOAST":
       return { ...state, toast: null };
 
@@ -116,12 +154,14 @@ function messageReducer(
 interface MessageContextValue {
   state: MessageState;
   dispatch: React.Dispatch<MessageAction>;
-  // Derived / convenience selectors
   queueMessages: Message[];
   processedMessages: Message[];
+  cancelledMessages: Message[];
   selectedMessage: Message | null;
+  cancelMessage: Message | null;
   untaggedCount: number;
   taggedCount: number;
+  cancelledCount: number;
 }
 
 const MessageContext = createContext<MessageContextValue | null>(null);
@@ -154,7 +194,7 @@ export function MessageProvider({ children }: { children: ReactNode }) {
 
   // ── Derived selectors ────────────────────────────────────────────────────
 
-  const { messages, filters, selectedMessageId } = state;
+  const { messages, filters, selectedMessageId, cancelMessageId } = state;
 
   const applyFilters = (msgs: Message[]): Message[] => {
     return msgs.filter((m) => {
@@ -169,14 +209,19 @@ export function MessageProvider({ children }: { children: ReactNode }) {
     });
   };
 
-  // Queue: natural ID order (no untagged-first sorting)
+  // Queue: show non-cancelled messages in ID order
   const queueMessages = applyFilters(
-    [...messages].sort((a, b) => a.id - b.id)
+    [...messages].filter((m) => m.status !== "Cancelled").sort((a, b) => a.id - b.id)
   );
 
-  // Processed: only tagged messages, apply filters
+  // Processed: only tagged messages
   const processedMessages = applyFilters(
     messages.filter((m) => m.status === "Tagged")
+  );
+
+  // Cancelled: only cancelled messages
+  const cancelledMessages = applyFilters(
+    messages.filter((m) => m.status === "Cancelled")
   );
 
   const selectedMessage =
@@ -184,17 +229,26 @@ export function MessageProvider({ children }: { children: ReactNode }) {
       ? (messages.find((m) => m.id === selectedMessageId) ?? null)
       : null;
 
+  const cancelMessage =
+    cancelMessageId !== null
+      ? (messages.find((m) => m.id === cancelMessageId) ?? null)
+      : null;
+
   const untaggedCount = messages.filter((m) => m.status === "Untagged").length;
   const taggedCount = messages.filter((m) => m.status === "Tagged").length;
+  const cancelledCount = messages.filter((m) => m.status === "Cancelled").length;
 
   const value: MessageContextValue = {
     state,
     dispatch,
     queueMessages,
     processedMessages,
+    cancelledMessages,
     selectedMessage,
+    cancelMessage,
     untaggedCount,
     taggedCount,
+    cancelledCount,
   };
 
   return (

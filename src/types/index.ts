@@ -1,7 +1,7 @@
 // ─── Core Message Types ──────────────────────────────────────────────────────
 
 export type Impact = "Low" | "Medium" | "High" | "Critical";
-export type Status = "Untagged" | "Tagged";
+export type Status = "Untagged" | "Tagged" | "Cancelled";
 
 export const TOXICITY_OPTIONS = [
   "Harassment",
@@ -36,6 +36,7 @@ export interface Message extends RawMessage {
   status: Status;
   updatedBy?: string;
   updatedAt?: string;
+  cancellationReason?: string;
 }
 
 // ─── Tagging Payload ─────────────────────────────────────────────────────────
@@ -48,7 +49,7 @@ export interface TagPayload {
 
 // ─── Tab Types ───────────────────────────────────────────────────────────────
 
-export type TabKey = "queue" | "processed";
+export type TabKey = "queue" | "processed" | "cancelled";
 
 // ─── Filter Types ────────────────────────────────────────────────────────────
 

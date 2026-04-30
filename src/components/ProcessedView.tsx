@@ -89,15 +89,24 @@ function ProcessedRow({ message, index }: { message: Message; index: number }) {
         {message.updatedAt ? formatTimestamp(message.updatedAt) : "--"}
       </td>
 
-      {/* Edit action */}
+      {/* Actions */}
       <td className="px-4 py-3 whitespace-nowrap">
-        <button
-          id={`processed-edit-${message.id}`}
-          onClick={() => dispatch({ type: "OPEN_MODAL", payload: message.id })}
-          className="px-3 py-1.5 rounded text-xs font-semibold bg-slate-700 hover:bg-slate-600 text-slate-200 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-500"
-        >
-          Edit
-        </button>
+        <div className="flex items-center gap-1.5">
+          <button
+            id={`processed-edit-${message.id}`}
+            onClick={() => dispatch({ type: "OPEN_MODAL", payload: message.id })}
+            className="px-3 py-1.5 rounded text-xs font-semibold bg-slate-700 hover:bg-slate-600 text-slate-200 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-slate-500"
+          >
+            Edit
+          </button>
+          <button
+            id={`processed-invalid-${message.id}`}
+            onClick={() => dispatch({ type: "OPEN_CANCEL_MODAL", payload: message.id })}
+            className="px-3 py-1.5 rounded text-xs font-semibold bg-slate-800 hover:bg-orange-900/60 text-slate-400 hover:text-orange-300 border border-slate-700 hover:border-orange-700 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-orange-500"
+          >
+            Mark Invalid
+          </button>
+        </div>
       </td>
     </tr>
   );
