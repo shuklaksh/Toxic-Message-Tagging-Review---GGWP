@@ -1,98 +1,174 @@
 [
   { "id": 1, "loggedBy": "AutoMod_v2", "message": "I will find where you live and make you pay for this. Mark my words." },
   { "id": 2, "loggedBy": "PlayerReport_7821", "message": "You absolute trash player, uninstall the game and never come back." },
-  { "id": 3, "loggedBy": "ChatFilter_01", "message": "This game is rigged. The devs are a bunch of corrupt money-grabbers." },
+  {
+    "id": 3, "loggedBy": "ChatFilter_01", "message": "This game is rigged. The devs are a bunch of corrupt money-grabbers.",
+    "status": "Tagged", "toxicityType": ["Harassment", "Trolling"], "impact": "Medium",
+    "comment": "Repeated complaint about devs across multiple sessions.", "updatedBy": "Mod_Aria", "updatedAt": "2026-04-28T14:23:00.000Z"
+  },
   { "id": 4, "loggedBy": "AutoMod_v2", "message": "kys loser, nobody wants you here." },
   { "id": 5, "loggedBy": "PlayerReport_1042", "message": "All [slur] players should be banned from this server permanently." },
   { "id": 6, "loggedBy": "FlagBot_3", "message": "Your mother should've swallowed you. Disgusting human being." },
-  { "id": 7, "loggedBy": "ChatFilter_01", "message": "Stop spamming the same message over and over you bot. BANNED." },
+  {
+    "id": 7, "loggedBy": "ChatFilter_01", "message": "Stop spamming the same message over and over you bot. BANNED.",
+    "status": "Tagged", "toxicityType": ["Spamming"], "impact": "Low",
+    "comment": "Classic flood pattern, auto-detected by chat filter.", "updatedBy": "Mod_Jordan", "updatedAt": "2026-04-27T09:11:00.000Z"
+  },
   { "id": 8, "loggedBy": "PlayerReport_4410", "message": "Using aimbots and wallhacks is totally fine, nobody can stop me anyway lol" },
   { "id": 9, "loggedBy": "AutoMod_v2", "message": "I hope you and your family suffer for what you did in that match." },
   { "id": 10, "loggedBy": "FlagBot_3", "message": "Report me all you want. I'll keep doing it. Nothing you can do." },
   { "id": 11, "loggedBy": "PlayerReport_2293", "message": "Women don't belong in gaming. Go back to the kitchen." },
-  { "id": 12, "loggedBy": "ChatFilter_01", "message": "Anyone who plays this hero is a brainless monkey." },
+  {
+    "id": 12, "loggedBy": "ChatFilter_01", "message": "Anyone who plays this hero is a brainless monkey.",
+    "status": "Tagged", "toxicityType": ["Slurs", "Personal Attack"], "impact": "High",
+    "comment": "Dehumanising language targeting a player demographic. Warning issued.", "updatedBy": "Mod_Sam", "updatedAt": "2026-04-29T08:05:00.000Z"
+  },
   { "id": 13, "loggedBy": "AutoMod_v2", "message": "I have your IP. I will DDoS you until you rage quit this server." },
   { "id": 14, "loggedBy": "PlayerReport_8800", "message": "Buy my gold coins, cheapest prices! dm me now!! 100g for $2!!" },
   { "id": 15, "loggedBy": "FlagBot_3", "message": "You play like a brain-damaged toddler. Absolutely pathetic." },
   { "id": 16, "loggedBy": "PlayerReport_3391", "message": "Reported for griefing but nothing happened. This mod team is useless trash." },
-  { "id": 17, "loggedBy": "AutoMod_v2", "message": "Keep farming, filthy rat. We'll camp your spawn all game." },
+  {
+    "id": 17, "loggedBy": "AutoMod_v2", "message": "Keep farming, filthy rat. We'll camp your spawn all game.",
+    "status": "Tagged", "toxicityType": ["Toxic Behavior", "Bullying"], "impact": "Medium",
+    "comment": "Deliberate spawn camping to harass a specific player. 48h suspension.", "updatedBy": "Mod_Aria", "updatedAt": "2026-04-26T16:44:00.000Z"
+  },
   { "id": 18, "loggedBy": "ChatFilter_01", "message": "Stop feeding on purpose you sabotaging piece of garbage." },
   { "id": 19, "loggedBy": "PlayerReport_5510", "message": "You [ethnic slur] always cheat. It's in your blood." },
   { "id": 20, "loggedBy": "FlagBot_3", "message": "This game should be 18+ only to keep idiots like you out." },
   { "id": 21, "loggedBy": "AutoMod_v2", "message": "I'll get your account banned by spamming false reports. Just watch." },
-  { "id": 22, "loggedBy": "PlayerReport_6627", "message": "You're too poor to afford the premium pass? Begging loser." },
+  {
+    "id": 22, "loggedBy": "PlayerReport_6627", "message": "You're too poor to afford the premium pass? Begging loser.",
+    "status": "Tagged", "toxicityType": ["Bullying", "Harassment"], "impact": "Medium",
+    "comment": "Socioeconomic shaming — serial reporter targeting the same user.", "updatedBy": "Mod_Jordan", "updatedAt": "2026-04-28T11:30:00.000Z"
+  },
   { "id": 23, "loggedBy": "ChatFilter_01", "message": "Mods are sleeping, post cat pics! (same message repeated 40 times)" },
   { "id": 24, "loggedBy": "AutoMod_v2", "message": "Die in a fire, you useless troll. Everyone hates you." },
   { "id": 25, "loggedBy": "FlagBot_3", "message": "I know your real name and school. Watch your back tomorrow." },
-  { "id": 26, "loggedBy": "PlayerReport_9910", "message": "Gay people shouldn't be allowed to play online games." },
+  {
+    "id": 26, "loggedBy": "PlayerReport_9910", "message": "Gay people shouldn't be allowed to play online games.",
+    "status": "Tagged", "toxicityType": ["Discrimination", "Hate"], "impact": "High",
+    "comment": "Explicit homophobic exclusion statement. Account actioned.", "updatedBy": "Mod_Aria", "updatedAt": "2026-04-29T07:00:00.000Z"
+  },
   { "id": 27, "loggedBy": "ChatFilter_01", "message": "You're the reason why this game is dying. Absolute cancer of a player." },
   { "id": 28, "loggedBy": "AutoMod_v2", "message": "Selling hacked accounts, pm me for prices. Cheap and safe!" },
   { "id": 29, "loggedBy": "PlayerReport_1199", "message": "Hope your PC explodes and takes you with it, moron." },
   { "id": 30, "loggedBy": "FlagBot_3", "message": "You clearly use macros. I've screenshotted everything and will get you banned." },
   { "id": 31, "loggedBy": "AutoMod_v2", "message": "Disabled players shouldn't be playing competitive modes. They ruin it for everyone." },
   { "id": 32, "loggedBy": "PlayerReport_7732", "message": "Your gameplay is so bad I genuinely feel sorry for whoever raised you." },
-  { "id": 33, "loggedBy": "ChatFilter_01", "message": "CLICK HERE FOR FREE V-BUCKS!!! Limited time!!! https://freevbucks.scam" },
+  {
+    "id": 33, "loggedBy": "ChatFilter_01", "message": "CLICK HERE FOR FREE V-BUCKS!!! Limited time!!! https://freevbucks.scam",
+    "status": "Tagged", "toxicityType": ["Spamming"], "impact": "Low",
+    "comment": "Phishing link. Account flagged and reported to security team.", "updatedBy": "Mod_Sam", "updatedAt": "2026-04-27T13:20:00.000Z"
+  },
   { "id": 34, "loggedBy": "AutoMod_v2", "message": "You're nothing but a [sexual slur]. Go back to your hole." },
   { "id": 35, "loggedBy": "FlagBot_3", "message": "Throwing the game on purpose lmao, watch me ruin every match I join." },
   { "id": 36, "loggedBy": "PlayerReport_4401", "message": "I reported this player for smurfing 3 times but support keeps closing my ticket." },
   { "id": 37, "loggedBy": "AutoMod_v2", "message": "You'll be crying yourself to sleep after I destroy your rank in every match." },
-  { "id": 38, "loggedBy": "ChatFilter_01", "message": "Your entire family is trash. No wonder you turned out like this." },
+  {
+    "id": 38, "loggedBy": "ChatFilter_01", "message": "Your entire family is trash. No wonder you turned out like this.",
+    "status": "Tagged", "toxicityType": ["Personal Attack", "Abuse"], "impact": "High",
+    "comment": "Targeted family abuse. 7-day ban applied.", "updatedBy": "Mod_Jordan", "updatedAt": "2026-04-26T10:15:00.000Z"
+  },
   { "id": 39, "loggedBy": "PlayerReport_8821", "message": "Using lag switch to win ranked matches. I have the video evidence." },
   { "id": 40, "loggedBy": "FlagBot_3", "message": "If I see you online again I'll make sure you can never play here again." },
   { "id": 41, "loggedBy": "AutoMod_v2", "message": "Buying and selling ranked boosting services. Diamond to Challenger, DM for rates." },
   { "id": 42, "loggedBy": "PlayerReport_2204", "message": "Imagine being this bad at a game designed for children. Embarrassing." },
   { "id": 43, "loggedBy": "ChatFilter_01", "message": "Mental illness must be why you play this way. Seek help." },
-  { "id": 44, "loggedBy": "AutoMod_v2", "message": "Poor people should stick to free-to-play games. Don't waste our premium servers." },
+  {
+    "id": 44, "loggedBy": "AutoMod_v2", "message": "Poor people should stick to free-to-play games. Don't waste our premium servers.",
+    "status": "Tagged", "toxicityType": ["Discrimination", "Bullying"], "impact": "Medium",
+    "comment": "Socioeconomic discrimination in competitive lobby. Verbal warning issued.", "updatedBy": "Mod_Aria", "updatedAt": "2026-04-28T17:55:00.000Z"
+  },
   { "id": 45, "loggedBy": "FlagBot_3", "message": "You're such an ugly failure, inside and out. Nobody loves you." },
   { "id": 46, "loggedBy": "PlayerReport_5519", "message": "AFK botting to farm XP is not cheating, it's optimization. Stop crying." },
   { "id": 47, "loggedBy": "AutoMod_v2", "message": "I'll swat your address if you don't leave the lobby right now." },
   { "id": 48, "loggedBy": "ChatFilter_01", "message": "People from [country] always ruin online games. Go play on your own servers." },
-  { "id": 49, "loggedBy": "PlayerReport_3398", "message": "You're the worst teammate I've ever had in 10 years of gaming. Worthless." },
+  {
+    "id": 49, "loggedBy": "PlayerReport_3398", "message": "You're the worst teammate I've ever had in 10 years of gaming. Worthless.",
+    "status": "Tagged", "toxicityType": ["Harassment", "Toxic Behavior"], "impact": "Medium",
+    "comment": "Persistent teammate harassment across multiple game sessions.", "updatedBy": "Mod_Sam", "updatedAt": "2026-04-27T15:40:00.000Z"
+  },
   { "id": 50, "loggedBy": "FlagBot_3", "message": "FREE SKINS GIVEAWAY! First 50 DMs get a code! Message now!" },
   { "id": 51, "loggedBy": "AutoMod_v2", "message": "Script kiddie detected. I've already submitted your account to the anti-cheat team." },
   { "id": 52, "loggedBy": "PlayerReport_6631", "message": "Trash tier player thinks they belong in Diamond. You're hardstuck Silver for a reason." },
-  { "id": 53, "loggedBy": "ChatFilter_01", "message": "You deserve to have your account deleted along with your gaming career." },
+  {
+    "id": 53, "loggedBy": "ChatFilter_01", "message": "You deserve to have your account deleted along with your gaming career.",
+    "status": "Tagged", "toxicityType": ["Personal Attack", "Harassment"], "impact": "Medium",
+    "comment": "Coordinated harassment across 3 sessions. Escalated to trust & safety.", "updatedBy": "Mod_Jordan", "updatedAt": "2026-04-29T06:30:00.000Z"
+  },
   { "id": 54, "loggedBy": "AutoMod_v2", "message": "Sell me your account or I'll report it for boosting until it's banned." },
   { "id": 55, "loggedBy": "FlagBot_3", "message": "I bet you're one of those [religious slur] who always cry about fairness." },
   { "id": 56, "loggedBy": "PlayerReport_9921", "message": "You've been intentionally feeding for 5 games in a row. I have screenshots." },
-  { "id": 57, "loggedBy": "AutoMod_v2", "message": "Imagine trying this hard and still being this bad. It's genuinely sad." },
+  {
+    "id": 57, "loggedBy": "AutoMod_v2", "message": "Imagine trying this hard and still being this bad. It's genuinely sad.",
+    "status": "Tagged", "toxicityType": ["Trolling"], "impact": "Low",
+    "comment": "Standard low-effort trolling. 24-hour chat mute issued.", "updatedBy": "Mod_Aria", "updatedAt": "2026-04-26T12:00:00.000Z"
+  },
   { "id": 58, "loggedBy": "ChatFilter_01", "message": "You play like you've never heard of a mouse. Is this your first day on a computer?" },
   { "id": 59, "loggedBy": "FlagBot_3", "message": "I'll ruin your win rate for the rest of the season. Just you wait." },
   { "id": 60, "loggedBy": "PlayerReport_1107", "message": "Your kind doesn't belong in gaming communities. Get out." },
   { "id": 61, "loggedBy": "AutoMod_v2", "message": "Absolutely wrecked you lol. Go cry to your mommy, little baby." },
-  { "id": 62, "loggedBy": "ChatFilter_01", "message": "Using a VPN to evade bans is not against the rules — check the TOS again." },
+  {
+    "id": 62, "loggedBy": "ChatFilter_01", "message": "Using a VPN to evade bans is not against the rules — check the TOS again.",
+    "status": "Tagged", "toxicityType": ["Cheating"], "impact": "Medium",
+    "comment": "VPN ban evasion suspected. Forwarded to IP analysis team.", "updatedBy": "Mod_Sam", "updatedAt": "2026-04-28T20:10:00.000Z"
+  },
   { "id": 63, "loggedBy": "FlagBot_3", "message": "You're not a gamer, you're a cancer on this community. Leave and never return." },
   { "id": 64, "loggedBy": "PlayerReport_4423", "message": "I'll keep creating smurf accounts until you're forced to quit. Have fun." },
   { "id": 65, "loggedBy": "AutoMod_v2", "message": "Mass reporting this streamer falsely to get them banned. Who's with me?" },
-  { "id": 66, "loggedBy": "ChatFilter_01", "message": "Your team carried you hard. Without them you'd be in Bronze, you parasite." },
+  {
+    "id": 66, "loggedBy": "ChatFilter_01", "message": "Your team carried you hard. Without them you'd be in Bronze, you parasite.",
+    "status": "Tagged", "toxicityType": ["Bullying", "Toxic Behavior"], "impact": "Medium",
+    "comment": "KDA-shaming targeting a lower-ranked teammate. Warning on record.", "updatedBy": "Mod_Jordan", "updatedAt": "2026-04-27T18:25:00.000Z"
+  },
   { "id": 67, "loggedBy": "FlagBot_3", "message": "Exploiting the dungeon glitch for infinite loot. DM me for the guide." },
-  { "id": 68, "loggedBy": "PlayerReport_7744", "message": "Reported you for stream sniping. Funny how you always know exactly where I am." },
+  { "id": 68, "loggedBy": "PlayerReport_7744", "message": "Caught this player stream sniping. They always know exactly where I am." },
   { "id": 69, "loggedBy": "AutoMod_v2", "message": "You make this game miserable for everyone. Log off and don't come back." },
   { "id": 70, "loggedBy": "ChatFilter_01", "message": "Nobody asked for your opinion. Shut up and play or leave the channel." },
-  { "id": 71, "loggedBy": "FlagBot_3", "message": "Every time a [gender slur] logs in, this game gets worse." },
+  {
+    "id": 71, "loggedBy": "FlagBot_3", "message": "Every time a [gender slur] logs in, this game gets worse.",
+    "status": "Tagged", "toxicityType": ["Discrimination", "Slurs"], "impact": "Critical",
+    "comment": "Gender-based hate speech with slurs. Account permanently banned.", "updatedBy": "Mod_Aria", "updatedAt": "2026-04-29T05:45:00.000Z"
+  },
   { "id": 72, "loggedBy": "PlayerReport_2216", "message": "You're boosted trash. Carried by your premades who feel sorry for you." },
   { "id": 73, "loggedBy": "AutoMod_v2", "message": "Intentionally disconnecting during ranked to deny enemy victory points is brilliant strategy, actually." },
   { "id": 74, "loggedBy": "ChatFilter_01", "message": "Just leave the game already. You have no future here." },
   { "id": 75, "loggedBy": "FlagBot_3", "message": "I found your LinkedIn. Might share it with your employer how you spend your free time." },
-  { "id": 76, "loggedBy": "PlayerReport_5532", "message": "Organizing mass griefing events in low-level zones. This player ruins new player experience." },
-  { "id": 77, "loggedBy": "AutoMod_v2", "message": "Stop making excuses for your trash play. You're just bad and need to accept it." },
+  { "id": 76, "loggedBy": "PlayerReport_5532", "message": "Organizing mass griefing events in low-level zones. Ruins the new player experience." },
+  {
+    "id": 77, "loggedBy": "AutoMod_v2", "message": "Stop making excuses for your trash play. You're just bad and need to accept it.",
+    "status": "Tagged", "toxicityType": ["Harassment", "Abuse"], "impact": "Low",
+    "comment": "Repeated low-level taunting. Chat restriction applied.", "updatedBy": "Mod_Sam", "updatedAt": "2026-04-27T21:00:00.000Z"
+  },
   { "id": 78, "loggedBy": "ChatFilter_01", "message": "Every player from [region] should be put on separate servers so we don't have to deal with them." },
-  { "id": 79, "loggedBy": "FlagBot_3", "message": "Calling out suspected cheaters here: PlayerX123, DarkWizard_99, SpeedyGunz — report them all." },
+  { "id": 79, "loggedBy": "FlagBot_3", "message": "Calling out suspected cheaters: PlayerX123, DarkWizard_99 — report them all." },
   { "id": 80, "loggedBy": "PlayerReport_8853", "message": "You're pathetic. Even bots play better than you. Uninstall and save everyone's time." },
   { "id": 81, "loggedBy": "AutoMod_v2", "message": "Selling modded save files and infinite currency hacks. Only $5 via PayPal." },
   { "id": 82, "loggedBy": "ChatFilter_01", "message": "I hope your internet cuts out during every ranked game forever." },
-  { "id": 83, "loggedBy": "FlagBot_3", "message": "People who main this character have no skill and no self-respect." },
+  {
+    "id": 83, "loggedBy": "FlagBot_3", "message": "People who main this character have no skill and no self-respect.",
+    "status": "Tagged", "toxicityType": ["Harassment", "Trolling"], "impact": "Low",
+    "comment": "Character-based trolling. No further action required.", "updatedBy": "Mod_Jordan", "updatedAt": "2026-04-26T09:00:00.000Z"
+  },
   { "id": 84, "loggedBy": "PlayerReport_3327", "message": "This player used racial slurs in voice chat for the entire match. Recording attached." },
   { "id": 85, "loggedBy": "AutoMod_v2", "message": "Go back to your third-world country and play on dial-up internet, you lag machine." },
   { "id": 86, "loggedBy": "ChatFilter_01", "message": "You should be institutionalized for how you play this game. Genuinely unwell." },
   { "id": 87, "loggedBy": "FlagBot_3", "message": "Flooding guild chat with recruitment spam every 2 minutes for the last hour." },
-  { "id": 88, "loggedBy": "PlayerReport_6643", "message": "If you queue into my lobby again I will send you a virus. I'm not joking." },
+  {
+    "id": 88, "loggedBy": "PlayerReport_6643", "message": "If you queue into my lobby again I will send you a virus. I'm not joking.",
+    "status": "Tagged", "toxicityType": ["Threats"], "impact": "Critical",
+    "comment": "Explicit malware threat. Account permanently suspended, reported to platform security.", "updatedBy": "Mod_Aria", "updatedAt": "2026-04-29T04:20:00.000Z"
+  },
   { "id": 89, "loggedBy": "AutoMod_v2", "message": "This team is full of boosted trash. I'm throwing on purpose as protest." },
   { "id": 90, "loggedBy": "ChatFilter_01", "message": "Do everyone a favor and delete your account, you absolutely worthless bot." },
   { "id": 91, "loggedBy": "FlagBot_3", "message": "Using a keyboard macro for rapid-fire actions in a shooter. Classic cheater." },
   { "id": 92, "loggedBy": "PlayerReport_9954", "message": "You call yourself a gamer? I've seen grandmas play better. Embarrassing." },
   { "id": 93, "loggedBy": "AutoMod_v2", "message": "Leaked the opposing team's strategy from the scrim call. Mega rat move." },
-  { "id": 94, "loggedBy": "ChatFilter_01", "message": "This entire server is infested with smurfs and nobody does anything about it." },
+  {
+    "id": 94, "loggedBy": "ChatFilter_01", "message": "This entire server is infested with smurfs and nobody does anything about it.",
+    "status": "Tagged", "toxicityType": ["Cheating", "Spamming"], "impact": "Low",
+    "comment": "Valid smurf complaint, cross-referenced with anti-cheat logs. Forwarded to ranked integrity team.", "updatedBy": "Mod_Sam", "updatedAt": "2026-04-28T08:30:00.000Z"
+  },
   { "id": 95, "loggedBy": "FlagBot_3", "message": "Wishing you get hit by a car on your way home tonight. Mean it." },
   { "id": 96, "loggedBy": "PlayerReport_1165", "message": "The only reason you win is because you pay for paid hacks. You're not skilled." },
   { "id": 97, "loggedBy": "AutoMod_v2", "message": "If I were your parent I'd be ashamed of how terrible you are at everything." },

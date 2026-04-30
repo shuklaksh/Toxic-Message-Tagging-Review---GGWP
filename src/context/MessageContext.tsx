@@ -131,14 +131,24 @@ const MessageContext = createContext<MessageContextValue | null>(null);
 export function MessageProvider({ children }: { children: ReactNode }) {
   const [state, dispatch] = useReducer(messageReducer, initialState);
 
-  // Seed messages once on mount
+  // Seed messages once on mount — preserve any pre-tagged entries from JSON
   useEffect(() => {
-    const seeded: Message[] = (rawMessages as { id: number; loggedBy: string; message: string }[]).map(
-      (raw) => ({
-        ...raw,
-        status: "Untagged",
-      })
-    );
+    type SeedRow = {
+      id: number; loggedBy: string; message: string;
+      status?: string; toxicityType?: string[]; impact?: string;
+      comment?: string; updatedBy?: string; updatedAt?: string;
+    };
+    const seeded: Message[] = (rawMessages as SeedRow[]).map((raw) => ({
+      id: raw.id,
+      loggedBy: raw.loggedBy,
+      message: raw.message,
+      status: (raw.status as Message["status"]) ?? "Untagged",
+      toxicityType: raw.toxicityType,
+      impact: raw.impact as Message["impact"] | undefined,
+      comment: raw.comment,
+      updatedBy: raw.updatedBy,
+      updatedAt: raw.updatedAt,
+    }));
     dispatch({ type: "INIT_MESSAGES", payload: seeded });
   }, []);
 
@@ -159,13 +169,9 @@ export function MessageProvider({ children }: { children: ReactNode }) {
     });
   };
 
-  // Queue: sort untagged first, then tagged; then apply filters
+  // Queue: natural ID order (no untagged-first sorting)
   const queueMessages = applyFilters(
-    [...messages].sort((a, b) => {
-      if (a.status === "Untagged" && b.status === "Tagged") return -1;
-      if (a.status === "Tagged" && b.status === "Untagged") return 1;
-      return a.id - b.id;
-    })
+    [...messages].sort((a, b) => a.id - b.id)
   );
 
   // Processed: only tagged messages, apply filters

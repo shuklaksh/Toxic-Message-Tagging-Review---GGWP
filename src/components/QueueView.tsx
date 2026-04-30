@@ -11,9 +11,6 @@ export function QueueView() {
         <h2 className="text-base font-semibold text-slate-200">
           Message Queue
         </h2>
-        <span className="text-xs text-slate-500 hidden sm:block">
-          Untagged first · sorted by ID
-        </span>
       </div>
 
       <Filters mode="queue" />
