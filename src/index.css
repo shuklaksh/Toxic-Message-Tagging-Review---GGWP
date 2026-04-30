@@ -41,6 +41,15 @@ body {
   animation: slide-in 0.2s ease-out forwards;
 }
 
+/* Custom Select dropdown animation */
+@keyframes dropdown-in {
+  from { transform: translateY(-4px); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+.animate-dropdown-in {
+  animation: dropdown-in 0.12s ease-out forwards;
+}
+
 /* Line clamp utility */
 .line-clamp-2 {
   display: -webkit-box;
